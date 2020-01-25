@@ -1,0 +1,7 @@
+//This configuration allow you to use the laters ECMASCRIPT features
+{
+    "presets":[
+        "env",
+        "stage-0"
+    ]
+}

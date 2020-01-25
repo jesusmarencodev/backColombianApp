@@ -4,6 +4,8 @@ const app = express();
 //Route master
 app.use(require('./prueba'));
 app.use(require('./productRoute'));
+app.use(require('./categoryRoute'));
+app.use(require('./saleRoute'));
 
 
 

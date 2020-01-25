@@ -3,11 +3,12 @@ import productModel from '../models/productModel';
 var path = require('path');
 import fs from 'fs';
 var controllers = {
-	//controller that is responsible for creating a product
+	//Controller that is responsible for creating a product
 	save: (req, res) => {
 		let body = req.body;
-		if (body.code && body.name && body.about && body.category && body.price && body.units) {
+		if (body.code && body.name && body.about && body.category && body.price && body.units && body.category) {
 			let product = new productModel();
+			console.log(body);
 
 			product.code = body.code;
 			product.name = body.name;
@@ -16,6 +17,7 @@ var controllers = {
 			product.img = body.img;
 			product.price = body.price;
 			product.units = body.units;
+			product.category = body.category;
 
 			product
 				.save()

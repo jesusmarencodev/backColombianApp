@@ -11,11 +11,11 @@ let productSchema = new Schema({
     },
     name: {
         type: String,
-        required: [true, 'The description is necessary']
+        required: [true, 'The name is necessary']
     },
     about: {
         type: String,
-        required: [true, 'The description is necesary']
+        required: [true, 'The about is necesary']
     },
     category: {
         type: String,
@@ -39,7 +39,12 @@ let productSchema = new Schema({
     units:{
         type:Number,
         require: [true, 'The unit quantity is necesary']
-    }
+    },
+    category :{
+        type:Schema.ObjectId,
+        ref:'Categories',
+        required:[true, 'The category is necesary']
+    },
 });
 
 module.exports = mongoose.model('products', productSchema);

@@ -1,5 +1,6 @@
 'use strict';
 import productModel from '../models/productModel';
+import mongoose from 'mongoose';
 var path = require('path');
 import fs from 'fs';
 var controllers = {
@@ -91,6 +92,16 @@ var controllers = {
 						return res.status(404).json({ TheError: err.message });
 					}); 
         }
-	}
+	},
+	//Controller responsible for obtaining products for category
+	category:(req, res) => {
+		const id = req.params.id;
+
+		productModel.find({category:id})
+					.then((products)=>{
+						return res.status(200).json({products})
+					})
+
+   	}
 };
 module.exports = controllers;

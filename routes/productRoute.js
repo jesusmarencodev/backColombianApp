@@ -9,8 +9,10 @@ let app = express();
 
 //Route products
 app.post("/product/save", product.save);
+
 app.get("/product/get", product.get);
 app.get("/product/:id", product.getOne);
 app.get("/product/search/products/:search?", product.search);
+app.get("/product/category/:id", product.category);
 
 module.exports = app;

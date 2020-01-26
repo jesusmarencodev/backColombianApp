@@ -7,8 +7,8 @@ var controllers = {
 	save: (req, res) => {
 		let body = req.body;
 		if (body.code && body.name && body.about && body.category && body.price && body.units && body.category) {
+			
 			let product = new productModel();
-			console.log(body);
 
 			product.code = body.code;
 			product.name = body.name;
@@ -31,6 +31,21 @@ var controllers = {
 			return res.status(400).json({message:"Complete the required fields"})
 		}
 	},
+	//Controller responsible for obtaining one products
+	getOne:(req, res) => {
+		const id = req.params.id;
+		productModel.findById({_id:id})
+					.populate('category', 'name')
+					.then((product)=>{
+						if(!product){
+							throw new Error('No existe producto con este id')
+						}
+						return res.status(200).json({ product });
+					})
+					.catch((err) => {
+						return res.status(404).json({ TheError: err.message });
+					}); 
+	},
 	//Controller responsible for obtaining all products
 	get:(req, res) => {
 		 productModel.find({})
@@ -45,7 +60,6 @@ var controllers = {
 	//Controller responsible for search  products
 	search:(req, res) => {
 		var searchString = req.params.search;
-		console.log(searchString, "################");
 		if(searchString){
 
 			productModel.find({

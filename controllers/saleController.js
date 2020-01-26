@@ -35,7 +35,25 @@ const controllers = {
 					.catch((err) => {
 						return res.status(404).json({ TheError: err });
 					}); 
-   },
+	},
+   //Controller responsible for removing products from the shopping cart
+	deleteProduct:(req, res) =>{
+		const id = req.params.id;
+		const index = parseInt(req.params.index);
+		saleModel.findById({_id:id})
+				.populate({path:'items.product', populate:{path:'product'}})
+				.then((sale)=>{
+					if(!sale) throw new Error(`Sale not found`)
+					sale.items.splice( index, 1 )
+					sale.save()
+						.then((itemRemoved)=>{
+							return res.status(200).json({ itemRemoved });
+						})
+				})
+				.catch((err) => {
+					return res.status(404).json({ TheError: err.message });
+				});
+	}
 
 };
 module.exports = controllers;

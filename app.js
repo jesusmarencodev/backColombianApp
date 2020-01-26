@@ -29,7 +29,7 @@ app.use((req, res, next) => {
 app.use(require('./routes/index'));
 
  //Connection to the server and database
-app.listen(PORT, ()=>{
+app.listen(PORT, () => {
   console.log(`Server ${PORT}`);
   mongoose.connect(URL_DB, {useNewUrlParser: true, useUnifiedTopology: true},  (err, res)=>{
     console.log('Conected mongoDB')

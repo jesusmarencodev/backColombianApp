@@ -5,7 +5,7 @@ const SECRET = config.SECRET;
 
 
 
-exports.ensureAuth = (req, res, next)=>{
+exports.ensureAuth = (req, res, next) => {
     if( !req.headers.authorization){//si el token no viene el los headers
         return res.status(403).send({message:"La peticion no tiene cabecera de autenticacion"});
     }else{      
@@ -18,7 +18,7 @@ exports.ensureAuth = (req, res, next)=>{
         })
     }
 }
-exports.verifySuperSu = (req, res, next)=>{
+exports.verifySuperSu = (req, res, next) => {
     var user = req.user;
 
     if(user.role === 'SUPERSU'){

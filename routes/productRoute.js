@@ -11,6 +11,6 @@ let app = express();
 app.post("/product/save", product.save);
 app.get("/product/get", product.get);
 app.get("/product/:id", product.getOne);
-app.get("/product/search/:search?", product.search);
+app.get("/product/search/products/:search?", product.search);
 
 module.exports = app;

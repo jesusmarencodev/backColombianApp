@@ -59,9 +59,13 @@ var controllers = {
 	},
 	//Controller responsible for search  products
 	search:(req, res) => {
-		var searchString = req.params.search;
-		if(searchString){
+		let searchString = '';
+		if(req.params.search){
 
+			searchString = req.params.search;
+		}
+		
+		if(searchString){
 			productModel.find({
 				"$or": [
                     { "name": { "$regex": searchString, "$options": "i" } },
@@ -73,16 +77,18 @@ var controllers = {
 				return res.status(200).json({ products });
 			})
 			.catch((err) => {
-				return res.status(404).json({ TheError: err });
+				return res.status(404).json({ TheError: err.message });
 			});
 		}else{
-
 			productModel.find({})
 					.then((products) => {
+						if(!products){
+							throw new Error(`Products not fount`)
+						}
 						return res.status(200).json({ products });
 					})
 					.catch((err) => {
-						return res.status(404).json({ TheError: err });
+						return res.status(404).json({ TheError: err.message });
 					}); 
         }
 	}

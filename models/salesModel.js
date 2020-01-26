@@ -19,7 +19,7 @@ let saleSchema = new Schema({
     },
     items:[
         {
-            product: {type:Schema.ObjectId, ref:'Products', required:[true, 'The item is necesary']},
+            product: {type:Schema.ObjectId, ref:'products', required:[true, 'The item is necesary']},
             units:Number
         },
     ],

@@ -6,6 +6,7 @@ let app = express();
 
 //Route products
 app.post('/sale/save', sale.save);
+app.get('/sale/get/:id', sale.get);
 
 
 module.exports = app;

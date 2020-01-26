@@ -5,15 +5,15 @@ var controllers = {
 	save: (req, res) => {
 		let body = req.body;
 		if (body.code && body.name) {
-			let categoty = new categoryModel();
+			let category = new categoryModel();
 
-			categoty.code = body.code;
-			categoty.name = body.name;
+			category.code = body.code;
+			category.name = body.name;
 
-			categoty
+			category
 				.save()
-				.then((categotyCreated) => {
-					return res.status(200).json({ categotyCreated });
+				.then((categoryCreated) => {
+					return res.status(200).json({ categoryCreated });
 				})
 				.catch((err) => {
 					return res.status(404).json({ TheError: err });
@@ -21,6 +21,16 @@ var controllers = {
 		}else{
 			return res.status(400).json({message:"Complete the required fields"})
 		}
+	},
+	//Controller responsible for obtaining all categories
+	get:(req, res) =>{
+		categoryModel.find({})
+					.then((categories)=>{
+						return res.status(200).json({ categories });
+					})
+					.catch((err) => {
+						return res.status(404).json({ TheError: err });
+					}); 
 	}
 };
 module.exports = controllers;

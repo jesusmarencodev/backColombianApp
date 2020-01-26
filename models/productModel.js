@@ -42,7 +42,7 @@ let productSchema = new Schema({
     },
     category :{
         type:Schema.ObjectId,
-        ref:'Categories',
+        ref:'categories',
         required:[true, 'The category is necesary']
     },
 });

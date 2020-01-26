@@ -4,7 +4,8 @@
   "description": "Marketplace prototype for virtual store",
   "main": "app.js",
   "scripts": {
-    "start": "nodemon app.js --exec babel-node -e js",
+    "start": "node app.js --exec babel-node -e js",
+    "dev": "nodemon app.js --exec babel-node -e js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [

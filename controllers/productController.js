@@ -30,6 +30,47 @@ var controllers = {
 		}else{
 			return res.status(400).json({message:"Complete the required fields"})
 		}
+	},
+	//Controller responsible for obtaining all products
+	get:(req, res) => {
+		 productModel.find({})
+		 			.populate('category')
+					.then((products)=>{
+						return res.status(200).json({ products });
+					})
+					.catch((err) => {
+						return res.status(404).json({ TheError: err });
+					}); 
+	},
+	//Controller responsible for search  products
+	search:(req, res) => {
+		var searchString = req.params.search;
+		console.log(searchString, "################");
+		if(searchString){
+
+			productModel.find({
+				"$or": [
+                    { "name": { "$regex": searchString, "$options": "i" } },
+                    { "about": { "$regex": searchString, "$options": "i" } }
+                ]
+			})
+			.sort([['date', 'descending']])
+			.then((products) => {
+				return res.status(200).json({ products });
+			})
+			.catch((err) => {
+				return res.status(404).json({ TheError: err });
+			});
+		}else{
+
+			productModel.find({})
+					.then((products) => {
+						return res.status(200).json({ products });
+					})
+					.catch((err) => {
+						return res.status(404).json({ TheError: err });
+					}); 
+        }
 	}
 };
 module.exports = controllers;

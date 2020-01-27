@@ -15,7 +15,7 @@ const controllers = {
 			sale.invoice = String(new Date().getTime());
 			sale.buyer = body.buyer; 
 			
-
+			//comment
 			const products = await productModel.find({});
 			for (let index = 0; index < items.length; index++) {
 				const element = items[index];

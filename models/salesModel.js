@@ -14,7 +14,7 @@ let saleSchema = new Schema({
         required: [true, 'The buyer is necessary']
     },
     total: {
-        type: String,
+        type: Number,
         required: [true, 'The about is necesary']
     },
     items:[

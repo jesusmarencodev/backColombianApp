@@ -1,27 +1,41 @@
 'use strict';
 import saleModel from '../models/salesModel';
+import productModel  from '../models/productModel';
 
 const controllers = {
 	//controller that is responsible for creating a sale
-	save: (req, res) => {
-        let body = req.body;
+	save: async (req, res) => {
+         let body = req.body;
 		if (body.buyer && body.items) {
+			let total = 0;
 			let sale = new saleModel();
-			sale.invoice = String(new Date().getTime());
-			sale.buyer = body.buyer;
-			sale.total = 5000;
-			sale.items = body.items;
+			let items = body.items;
 
-			sale
-				.save()
-				.then((saleCreated) => {
-					return res.status(200).json({ saleCreated });
-				})
-				.catch((err) => {
-					return res.status(404).json({ TheError: err.message });
-				});
-		}else{
-			return res.status(400).json({message:"Complete the required fields"})
+			sale.items = body.items;
+			sale.invoice = String(new Date().getTime());
+			sale.buyer = body.buyer; 
+			
+
+			const products = await productModel.find({});
+			for (let index = 0; index < items.length; index++) {
+				const element = items[index];
+				
+				for (let j = 0; j < products.length; j++) {
+					if(items[index].product == products[j]._id){
+						total += parseInt(items[index].units) * parseFloat(products[j].price);
+						sale.total = total;
+						if(index  == items.length -1){
+							sale.save()
+								 .then((result)=>{
+									 return res.status(200).json(result)
+								 })
+								 .catch((err)=>{
+									 return res.status(400).json(err)
+								 })
+						}
+					}
+				}
+			}
 		}
 	},
 	//Controller responsible for obtaining all sales

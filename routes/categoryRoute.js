@@ -8,6 +8,7 @@ let app = express();
 app.post('/category/save', category.save);
 app.post('/category/edit', category.edit);
 app.get('/category/get', category.get);
+app.get('/category/:id', category.getOne);
 
 
 module.exports = app;

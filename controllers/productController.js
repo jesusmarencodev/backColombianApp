@@ -151,6 +151,7 @@ var controllers = {
 						});
 					})
 	},
+	//Controller responsible for update products
 	update : async (req, res) =>{
 		let body = req.body;
 		let product = await productModel.findById({_id:body.id});

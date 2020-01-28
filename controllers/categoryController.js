@@ -2,7 +2,7 @@
 import categoryModel from '../models/categoryModel';
 var controllers = {
 	//controller that is responsible for creating a category
-	save: (req, res) => {
+	save : (req, res) => {
 		let body = req.body;
 		if (body.code && body.name) {
 			let category = new categoryModel();
@@ -23,7 +23,13 @@ var controllers = {
 		}
 	},
 	//Controller responsible for obtaining all categories
-	get:(req, res) =>{
+	getOne : async (req, res) => {
+		let {id} = req.params;
+		let category = await categoryModel.findById({_id:id});
+		return res.status(200).json({category});
+	},
+	//Controller responsible for obtaining all categories
+	get : (req, res) =>{
 		categoryModel.find({})
 					.then((categories)=>{
 						if(!categories){
@@ -36,7 +42,7 @@ var controllers = {
 					}); 
 	},
 	//Controller responsible for update all categories
-	edit: async (req, res) =>{
+	edit : async (req, res) =>{
 		let body = req.body;
 		let category = await categoryModel.findById({_id:body.id});
 		category.name = body.name;

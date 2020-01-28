@@ -151,6 +151,26 @@ var controllers = {
 						});
 					})
 	},
+	update : async (req, res) =>{
+		let body = req.body;
+		let product = await productModel.findById({_id:body.id});
+		console.log(product)
+		product.name = body.name;
+		product.about = body.about;
+		product.price = body.price;
+		product.category = body.category;
+		product.units = body.units;
+
+ 		product.save()
+		.then((productUpdate)=>{
+			if(!productUpdate) return res.status(404).json({message:'Not found results'})
+			return res.status(200).json({productUpdate});
+		})
+		.catch((err)=> {
+			return res.status(500).json({err})
+		});
+		
+	}
 	   
 };
 module.exports = controllers;

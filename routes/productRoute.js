@@ -15,6 +15,7 @@ app.get("/product/category/:id", product.category);
 
 
 app.post("/product/save", product.save);
+app.post("/product/edit", product.update);
 app.use(fileUpload());
 app.post("/product/upload/:id", product.upload);
 

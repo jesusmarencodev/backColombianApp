@@ -6,6 +6,7 @@ let app = express();
 
 //Route products
 app.post('/category/save', category.save);
+app.post('/category/edit', category.edit);
 app.get('/category/get', category.get);
 
 

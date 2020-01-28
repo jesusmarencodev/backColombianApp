@@ -154,12 +154,10 @@ var controllers = {
 	//Controller responsible for update products
 	update : async (req, res) =>{
 		let body = req.body;
-		let product = await productModel.findById({_id:body.id});
-		console.log(product)
+		let product = await productModel.findById({_id:body._id});
 		product.name = body.name;
 		product.about = body.about;
 		product.price = body.price;
-		product.category = body.category;
 		product.units = body.units;
 
  		product.save()

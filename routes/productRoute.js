@@ -12,6 +12,7 @@ app.get("/product/get", product.get);
 app.get("/product/:id", product.getOne);
 app.get("/product/search/products/:search?", product.search);
 app.get("/product/category/:id", product.category);
+app.get("/product/getimage/:image", product.getImage);
 
 
 app.post("/product/save", product.save);

@@ -105,8 +105,8 @@ var controllers = {
 	},
 	//Controller responsible for uploading products images
 	upload: (req, res) => {
-		let id = req.params.id;
-
+		let id = req.params._id;
+		console.log(id)
 		productModel.findById({_id:id})
 					.then((product) => {
 						//manipulationg image
@@ -130,6 +130,7 @@ var controllers = {
 						if(fs.existsSync(pathOld)){
 							fs.unlinkSync(pathOld)
 						}
+						console.log(product)
 						//new file path --->
 						const path = `./uploads/products/${fileName}`;
 
@@ -169,6 +170,21 @@ var controllers = {
 			return res.status(500).json({err})
 		});
 		
+	},
+	//Controller responsible for obtaining images
+	getImage : (req, res)=>{
+        var file = req.params.image;
+		var path_file = './uploads/products/' + file;
+		fs.exists(path_file, (exists) => {
+            if (exists) {
+                return res.sendFile(path.resolve(path_file)); //show image in browser
+            } else {
+                return res.status(404).send({
+                    status: 'error',
+                    message: 'Image does not exist'
+                })
+            }
+        })
 	}
 	   
 };

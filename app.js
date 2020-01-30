@@ -2,7 +2,6 @@
 import express from 'express';
 const app = express();
 import mongoose from 'mongoose';
-import path from 'path';
 import  bodyParser from 'body-parser';
 const {config} = require('./config/index');
 const PORT = config.PORT;

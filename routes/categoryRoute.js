@@ -1,14 +1,15 @@
 'use strict';
 import express from 'express';
 import category from '../controllers/categoryController';
-//import {ensureAuth, verifySuperSu} from '../middlewares/autenticated';
 let app = express();
 
-//Route products
-app.post('/category/save', category.save);
-app.post('/category/edit', category.edit);
+
+//Route category GET
 app.get('/category/get', category.get);
 app.get('/category/:id', category.getOne);
+//Route category POST
+app.post('/category/save', category.save);
+app.post('/category/edit', category.edit);
 
 
 module.exports = app;

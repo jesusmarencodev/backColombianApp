@@ -13,7 +13,6 @@ const controllers = {
 			let total = 0;
 			let sale = new saleModel();
 			let items = body.items;
-			sale.buyer = "jesus"
 			sale.invoice = String(new Date().getTime());
 
 			//findind array products
@@ -25,21 +24,25 @@ const controllers = {
 				for (var j = 0; j < products.length; j++) {
 
 					if(items[index].product == products[j]._id){
+						let product = await productModel.findById({_id:items[index].product});
+						//updating product units
+						product.units -=  items[index].quantity;
+						product.save();
 
 						items[index].state = undefined;
 
 						total += parseInt(items[index].quantity) * parseFloat(products[j].price);
 						sale.total = total;
-						sale.items.push(items[index])
+						sale.items.push(items[index]);
 									
 						if(index  == items.length -1){
 
 							sale.save()
 								 .then((result)=>{
-									 return res.status(200).json({result})
+									 return res.status(200).json({result});
 								 })
 								 .catch((err)=>{
-									 return res.status(400).json({err})
+									 return res.status(400).json({err});
 								 });
 						}
 					}
@@ -47,10 +50,21 @@ const controllers = {
 			}
 		} 
 	},
-	//Controller responsible for obtaining all sales
+	//Controller responsible for obtaining one sales
 	get:(req, res) => {
 		const id = req.params.id
 		saleModel.findById({_id:id})
+					.populate({path:'items.product', populate:{path:'product'}})
+					.then((sales)=>{
+						return res.status(200).json({ sales });
+					})
+					.catch((err) => {
+						return res.status(404).json({ TheError: err });
+					}); 
+	},
+	//Controller responsible for obtaining all sales
+	getAll:(req, res) => {
+		saleModel.find({})
 					.populate({path:'items.product', populate:{path:'product'}})
 					.then((sales)=>{
 						return res.status(200).json({ sales });

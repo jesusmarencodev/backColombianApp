@@ -3,7 +3,7 @@ import categoryModel from '../models/categoryModel';
 var controllers = {
 	//controller that is responsible for creating a category
 	save : (req, res) => {
-		console.log(body)
+
 		let body = req.body;
 		if (body.code && body.name) {
 			let category = new categoryModel();
@@ -20,7 +20,7 @@ var controllers = {
 					return res.status(404).json({ TheError: err });
 				});
 		}else{
-			return res.status(400).json({message:"Complete the required fields"})
+			return res.status(400).json({message:"Complete the required fields"});
 		}
 	},
 	//Controller responsible for obtaining all categories
@@ -53,7 +53,7 @@ var controllers = {
 					return res.status(200).json({categoryUpdate});
 				})
 				.catch((err)=> {
-					return res.status(500).json({err})
+					return res.status(500).json({err});
 				})
 	}
 };

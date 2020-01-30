@@ -61,11 +61,12 @@ var controllers = {
 	//Controller responsible for search  products
 	search:(req, res) => {
 		let searchString = '';
+		
 		if(req.params.search){
 
 			searchString = req.params.search;
 		}
-		
+	
 		if(searchString){
 			productModel.find({
 				"$or": [
@@ -84,7 +85,7 @@ var controllers = {
 			productModel.find({})
 					.then((products) => {
 						if(!products){
-							throw new Error(`Products not fount`)
+							throw new Error(`Products not fount`);
 						}
 						return res.status(200).json({ products });
 					})
@@ -95,24 +96,26 @@ var controllers = {
 	},
 	//Controller responsible for obtaining products for category
 	category:(req, res) => {
+
 		const id = req.params.id;
 
 		productModel.find({category:id})
 					.then((products) => {
-						return res.status(200).json({products})
+						return res.status(200).json({products});
 					})
 
 	},
 	//Controller responsible for uploading products images
 	upload: (req, res) => {
+
 		let id = req.params._id;
-		console.log(id)
+
 		productModel.findById({_id:id})
 					.then((product) => {
 						//manipulationg image
 						let imageFile = req.files.fileUpload;
 						let nameCut = imageFile.name.split('.');
-						let extension = nameCut[nameCut.length -1]
+						let extension = nameCut[nameCut.length -1];
 
 						const validExtensions = ['png', 'jpg', 'gif', 'jpeg'];
 						//validating image extensions
@@ -128,7 +131,7 @@ var controllers = {
 						product.img = fileName;
 						//if there was an image we delete id
 						if(fs.existsSync(pathOld)){
-							fs.unlinkSync(pathOld)
+							fs.unlinkSync(pathOld);
 						}
 						console.log(product)
 						//new file path --->
@@ -145,7 +148,7 @@ var controllers = {
 											});
 										}
 									});
-									return res.status(200).json({product, message:'Success'})
+									return res.status(200).json({product:productUpdate, message:'Success'});
 							   })
 							   .catch((err) => {
 								return res.status(404).json({ TheError: err });
@@ -167,7 +170,7 @@ var controllers = {
 			return res.status(200).json({productUpdate});
 		})
 		.catch((err)=> {
-			return res.status(500).json({err})
+			return res.status(500).json({err});
 		});
 		
 	},

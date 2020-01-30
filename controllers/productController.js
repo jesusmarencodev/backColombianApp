@@ -174,7 +174,6 @@ var controllers = {
 	//Controller responsible for obtaining images
 	getImage : (req, res)=>{
 		var file = req.params.image;
-		console.log(file);
 		var path_file = './uploads/products/' + file;
 		fs.exists(path_file, (exists) => {
             if (exists) {

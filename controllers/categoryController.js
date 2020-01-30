@@ -3,6 +3,7 @@ import categoryModel from '../models/categoryModel';
 var controllers = {
 	//controller that is responsible for creating a category
 	save : (req, res) => {
+		console.log(body)
 		let body = req.body;
 		if (body.code && body.name) {
 			let category = new categoryModel();

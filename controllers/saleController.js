@@ -5,38 +5,47 @@ import productModel  from '../models/productModel';
 const controllers = {
 	//controller that is responsible for creating a sale
 	save: async (req, res) => {
-         let body = req.body;
-		if (body.buyer && body.items) {
+		console.log("paso1")
+		 let body = req.body;
+
+		 if (body.items){ 
+		 
 			let total = 0;
 			let sale = new saleModel();
 			let items = body.items;
-
-			sale.items = body.items;
+			sale.buyer = "jesus"
 			sale.invoice = String(new Date().getTime());
-			sale.buyer = body.buyer; 
-			
-			//comment
+
+			//findind array products
 			const products = await productModel.find({});
-			for (let index = 0; index < items.length; index++) {
-				const element = items[index];
-				
-				for (let j = 0; j < products.length; j++) {
+
+			//for --->items
+			for (var index = 0; index < items.length; index++) {
+				//for -->products
+				for (var j = 0; j < products.length; j++) {
+
 					if(items[index].product == products[j]._id){
-						total += parseInt(items[index].units) * parseFloat(products[j].price);
+
+						items[index].state = undefined;
+
+						total += parseInt(items[index].quantity) * parseFloat(products[j].price);
 						sale.total = total;
+						sale.items.push(items[index])
+									
 						if(index  == items.length -1){
+
 							sale.save()
 								 .then((result)=>{
-									 return res.status(200).json(result)
+									 return res.status(200).json({result})
 								 })
 								 .catch((err)=>{
-									 return res.status(400).json(err)
-								 })
+									 return res.status(400).json({err})
+								 });
 						}
 					}
 				}
 			}
-		}
+		} 
 	},
 	//Controller responsible for obtaining all sales
 	get:(req, res) => {

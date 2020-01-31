@@ -26,6 +26,8 @@ var controllers = {
 					return res.status(200).json({ productCreated });
 				})
 				.catch((err) => {
+					console.log("entra aqui")
+					console.log(err)
 					return res.status(404).json({ TheError: err });
 				});
 		}else{
@@ -109,7 +111,7 @@ var controllers = {
 	upload: (req, res) => {
 
 		let id = req.params._id;
-
+		console.log(id);
 		productModel.findById({_id:id})
 					.then((product) => {
 						//manipulationg image

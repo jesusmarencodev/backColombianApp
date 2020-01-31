@@ -1,7 +1,6 @@
 //This configuration allow you to use the laters ECMASCRIPT features
 {
-    "presets":[
-        "env",
-        "stage-0"
+    "presets": [
+        "@babel/preset-env"
     ]
 }

@@ -14,15 +14,12 @@ const controllers = {
 			let sale = new saleModel();
 			let items = body.items;
 			sale.invoice = String(new Date().getTime());
-			let counter = 0;
+
 			//findind array products
 			const products = await productModel.find({});
 
 			//for --->items
 			for (var index = 0; index < items.length; index++) {
-				if(items[index].quantity  > items[index].units ){
-					++counter;
-				}
 				//for -->products
 				for (var j = 0; j < products.length; j++) {
 
@@ -40,19 +37,14 @@ const controllers = {
 						sale.items.push(items[index]);
 									
 						if(index  == items.length -1){
-							console.log(counter)
-							if(counter>0){
-								return res.status(404).json({message:`The item called ${product.name} exceeds the avaible units, please correct`})
-							}else{
-								sale.save()
-								.then((result)=>{
-									return res.status(200).json({result});
-								})
-								.catch((err)=>{
-									return res.status(400).json({err});
-								});
-							}
 
+							sale.save()
+							.then((result)=>{
+								return res.status(200).json({result});
+							})
+							.catch((err)=>{
+								return res.status(400).json({err});
+							});
 						}
 					}
 				}

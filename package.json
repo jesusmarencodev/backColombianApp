@@ -24,8 +24,7 @@
     "express-fileupload": "^1.1.6",
     "jsonwebtoken": "^8.5.1",
     "moment": "^2.24.0",
-    "mongoose": "^5.7.12",
-    "mongoose-unique-validator": "^2.0.3"
+    "mongoose": "^5.7.12"
   },
   "devDependencies": {
     "@babel/core": "^7.8.4",

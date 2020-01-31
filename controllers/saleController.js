@@ -5,7 +5,6 @@ import productModel  from '../models/productModel';
 const controllers = {
 	//controller that is responsible for creating a sale
 	save: async (req, res) => {
-		console.log("paso1")
 		 let body = req.body;
 
 		 if (body.items){ 

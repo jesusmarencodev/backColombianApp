@@ -1,6 +1,5 @@
 'use strict';
 import productModel from '../models/productModel';
-import mongoose from 'mongoose';
 var path = require('path');
 import fs from 'fs';
 var controllers = {
@@ -26,7 +25,6 @@ var controllers = {
 					return res.status(200).json({ productCreated });
 				})
 				.catch((err) => {
-					console.log("entra aqui")
 					console.log(err)
 					return res.status(404).json({ TheError: err });
 				});
@@ -109,9 +107,8 @@ var controllers = {
 	},
 	//Controller responsible for uploading products images
 	upload: (req, res) => {
-
 		let id = req.params._id;
-		console.log(id);
+
 		productModel.findById({_id:id})
 					.then((product) => {
 						//manipulationg image
@@ -135,7 +132,6 @@ var controllers = {
 						if(fs.existsSync(pathOld)){
 							fs.unlinkSync(pathOld);
 						}
-						console.log(product)
 						//new file path --->
 						const path = `./uploads/products/${fileName}`;
 
